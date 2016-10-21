@@ -7,7 +7,10 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -16,28 +19,68 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     private String TAG = "MainActivity";
     LocationManager locMan;
-    Location networkLocation = null;
-    Button btGetTime;
+    Button btUpdate;
+    Button btStop;
     TextView timeTxt;
+    CheckBox ckbGps;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btGetTime = (Button) findViewById(R.id.bt_get_time);
+        btUpdate = (Button) findViewById(R.id.bt_update);
+        btStop = (Button) findViewById(R.id.bt_stop);
         timeTxt = (TextView) findViewById(R.id.textView);
-        //locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        LocationManager locMan = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        try {
-            locMan.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this); //获取当前时间
-            locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER,  1000, 0, this);
-        }
-        catch ( SecurityException e)
-        {
-            Log.e(TAG, e.toString());
-        }
+        ckbGps = (CheckBox) findViewById(R.id.ckb_gps);
+        locMan = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        btUpdate.setOnClickListener(handler);
+        btStop.setOnClickListener(handler);
+        ckbGps.setOnCheckedChangeListener(checkHandler);
     }
+
+    View.OnClickListener handler = new View.OnClickListener() {
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.bt_update:
+                    try {
+                        locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, MainActivity.this);
+                    } catch (SecurityException e) {
+                        Log.e(TAG, e.toString());
+                    }
+
+                    break;
+                case R.id.bt_stop:
+                    try {
+                        locMan.removeUpdates(MainActivity.this);
+                    } catch (SecurityException e) {
+                        Log.e(TAG, e.toString());
+                    }
+                    break;
+            }
+        }
+    };
+
+    CompoundButton.OnCheckedChangeListener checkHandler = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView,
+                                     boolean isChecked) {
+            // TODO Auto-generated method stub
+            if (isChecked) {
+                try {
+                    locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, MainActivity.this);
+                } catch (SecurityException e) {
+                    Log.e(TAG, e.toString());
+                }
+            } else {
+                try {
+                    locMan.removeUpdates(MainActivity.this);
+                } catch (SecurityException e) {
+                    Log.e(TAG, e.toString());
+                }
+            }
+        }
+    };
 
 
     @Override
@@ -45,9 +88,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         // TODO Auto-generated method stub
         long time = location.getTime();
         Date date = new Date(time);
-        timeTxt.setText(time + " NETWORK_PROVIDER " + date);
+        timeTxt.setText(date.toString());
         //System.out.println(time + " NETWORK_PROVIDER " + date);
-        networkLocation = location;
+
     }
 
 
