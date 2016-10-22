@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="network_speed">
+        <item >64Kbps</item>
+        <item >128Kbps</item>
+        <item >192Kbps</item>
+        <item >256Kbps(兼容)</item>
+        <item >256Kbps</item>
+        <item >512Kbps</item>
+        <item >1024Kbps</item>
+    </string-array>
+    
+    <string-array name="network_mode">
+        <item >分组网(PRN)</item>
+        <item >数据链(LINK)</item>       
+    </string-array>
+    
+    <string-array name="network_station">
+        <item >属台</item>
+        <item >主台</item>
+    </string-array>
+    
+    <string-array name="workmode">
+        <item >定明</item>
+        <item >跳明</item>
+        <item >定密</item>
+        <item >跳密</item>       
+    </string-array>
+    
+    <string-array name="waveform_type">
+        <item >高速</item>
+        <item >预留</item>               
+    </string-array>
+    
+    <string-array name="power">
+        <item >值守</item>        
+        <item >大功率</item>  
+    </string-array>
+    
+    <string-array name="channel_access">
+        <item >CSMA</item>
+        <item >TDMA</item>               
+    </string-array>
+    
+    <string-array name="zzw_speed">
+        <item >128Kbps</item>
+        <item >256Kbps</item>
+        <item >512Kbps</item>
+        <item >1024Kbps</item>
+        <item >2048Kbps</item>
+    </string-array>
+</resources>

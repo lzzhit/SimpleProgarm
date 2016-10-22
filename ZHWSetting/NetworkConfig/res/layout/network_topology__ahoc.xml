@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+    <ScrollView 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+        
+        <LinearLayout 
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           android:orientation="horizontal" >
+
+       <TextView
+	       android:id="@+id/textView__NetworksAd"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       android:layout_weight="1"
+	       android:text="1"
+	       android:textSize="20sp" />
+    
+	   <TextView
+	        android:id="@+id/textView_NetworksInfo1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="2"
+	        android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView_NetworksInfo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="3"
+            android:textSize="20sp" />
+
+        <TextView
+           android:id="@+id/textView_Networkssignal"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:text="4"
+           android:textSize="20sp" />
+ 
+ 
+    </LinearLayout>
+        
+    </ScrollView>
+</HorizontalScrollView>-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+
+       <TextView
+	       android:id="@+id/textView__NetworksAd"
+	       android:layout_width="wrap_content"
+	       android:layout_height="wrap_content"
+	       android:layout_weight="1"
+	       android:text="1"
+	       android:textSize="20sp" />
+    
+	   <TextView
+	        android:id="@+id/textView_NetworksInfo1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="2"
+	        android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView_NetworksInfo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="3"
+            android:textSize="20sp" />
+
+        <TextView
+           android:id="@+id/textView_Networkssignal"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:text="4"
+           android:textSize="20sp" />
+ 
+ 
+</LinearLayout> 

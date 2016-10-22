@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">模块测试</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="network_strListName">网络拓扑</string>
+    <string name="network_strSpeed">业务速率</string>
+    <string name="network_strRadio">战互网</string>
+    <string name="point">.</string>
+    <string name="strIPAddress">IP地址:</string>
+    <string name="network_strConfig">配置</string>
+
+</resources>
