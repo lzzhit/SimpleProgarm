@@ -1,25 +1,19 @@
 package com.example.sender;
 
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.pages.Netconfig_Radio;
-import com.example.sender.Global;
+
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class RadioSender implements Runnable {
 	String TAG = "RadioSender";
@@ -47,16 +41,16 @@ public class RadioSender implements Runnable {
 		dataList.add(radioData);
 	}
 	public void PrintByteHex(String ssss, byte[] bbb ){
-		if(Global.Debug == false)
+		//if(Global.Debug == false)
 		{
 			return;
 		}
-		String s = "";
-		for(int i = 0; i < bbb.length; i++){
-			String ss = Integer.toHexString(bbb[i]&0xFF);
-			s = s + "0x" + ss + ",";
-		}
-		Log.i(TAG ,""+s);
+//		String s = "";
+//		for(int i = 0; i < bbb.length; i++){
+//			String ss = Integer.toHexString(bbb[i]&0xFF);
+//			s = s + "0x" + ss + ",";
+//		}
+//		Log.i(TAG ,""+s);
 	}
 	/*
 	 * UDP发送数据
@@ -124,60 +118,76 @@ public class RadioSender implements Runnable {
 
 		while (isSendering) {
 
-			try {
-				Thread.sleep(98);
-				if(st != Global.ACK )       //ACK状态变化时打印log
-				{
-					Log.i("RadioSender", "Global.ACK = "+ Global.ACK );
-					st = Global.ACK;
-				}
-			} catch (Exception e) {
-				// TODO: handle exception
-				//System.out.println(LOG + "run thread stop error");
-				Log.e("RadioSender", "run thread stop error" + e.toString());
-			}
-			if (dataList.size() > 0 || Global.ACK == Global.StateEnum.AckFalse) {
-				if (Global.ACK == Global.StateEnum.AckTrue) {      //收到肯定应答并且队列里有数据时,发送数据,ACK设为waiting状态
-					RadioData data = dataList.remove(0);
-					sendData(data.getRealData(), data.getSize());
+            try {
+                Thread.sleep(98);
+                if (st != Global.ACK)       //ACK状态变化时打印log
+                {
+                    Log.i("RadioSender", "Global.ACK = " + Global.ACK);
+                    st = Global.ACK;
+                }
+            } catch (Exception e) {
+                // TODO: handle exception
+                //System.out.println(LOG + "run thread stop error");
+                Log.e("RadioSender", "run thread stop error" + e.toString());
+            }
+            if (Global.Debug== true) {
+                    if (dataList.size() > 0) {      //队列里有数据时,
+                        RadioData data = dataList.remove(0);
+                        sendData(data.getRealData(), data.getSize());
 
-					tmpData = new byte[data.getSize()];
-					System.arraycopy(data.getRealData(), 0, tmpData, 0, data.getSize());
-					Global.ACK = Global.StateEnum.AckWaiting;
-				} else if(Global.ACK == Global.StateEnum.AckFalse ){
-					sendData(tmpData, tmpData.length);        //收到否定应答,自动重发上次数据,ACK设为waiting状态
+                        tmpData = new byte[data.getSize()];
+                        System.arraycopy(data.getRealData(), 0, tmpData, 0, data.getSize());
+                        timerCounts = 1;
+                        radioActivity.changeBtnEnable(false);
+                    } //else if(Global.ACK == Global.StateEnum.AckFalse )
+                    else if( timerCounts < Global.RetryTimes ) {//重发
+                        sendData(tmpData, tmpData.length);        //重发
+                        timerCounts ++;
+                    }
+                else{
+                        timerCounts = Global.RetryTimes;
+                        radioActivity.changeBtnEnable(true);
+                    }
+            } else {// if (Global.Debug == false) {
+                if (dataList.size() > 0 || Global.ACK == Global.StateEnum.AckFalse) {
+                    if (dataList.size() > 0) {      //收到肯定应答并且队列里有数据时,发送数据,ACK设为waiting状态
+                        RadioData data = dataList.remove(0);
+                        sendData(data.getRealData(), data.getSize());
+                        timerCounts = 0;
 
-					if (timerCounts == 0) {
-						Global.ACK = Global.StateEnum.AckTrue;    //20s发送失败,ACK设为True,但之后收到上报的False,此时强制设为True,发送下一条
-					} else {
-						Global.ACK = Global.StateEnum.AckWaiting;
-					}
+                        tmpData = new byte[data.getSize()];
+                        System.arraycopy(data.getRealData(), 0, tmpData, 0, data.getSize());
+                        Global.ACK = Global.StateEnum.AckWaiting;
+                    } //else if(Global.ACK == Global.StateEnum.AckFalse )
+                    else {
+                        sendData(tmpData, tmpData.length);        //收到否定应答,自动重发上次数据,ACK设为waiting状态
 
-				}
+                        Global.ACK = Global.StateEnum.AckWaiting;
 
-			}
-			if(Global.ACK == Global.StateEnum.AckWaiting)   // 等待响应,不允许点击设置或者查询按钮
-			{
-				radioActivity.changeBtnEnable(false);
-				timerCounts ++;
-				if(timerCounts >= Global.RetryTimes)//20s之后,跳过这个命令
-				{
-					Global.ACK = Global.StateEnum.AckTrue;
-					timerCounts = 0;
-					Toast.makeText(radioActivity.getApplication(), "跳过本命令", Toast.LENGTH_SHORT).show();    //显示提示框
-				}
-				else// if(timerCounts == 50)//10s 之后,认为失败,自动重发上次数据
-				{
-					Global.ACK = Global.StateEnum.AckFalse;
-				}
+                    }
 
-			}
-			else     //允许点击设置或者查询按钮
-			{
-				timerCounts = 0;
-				radioActivity.changeBtnEnable(true);
-			}
-		}
+                }
+                if (Global.ACK == Global.StateEnum.AckWaiting)   // 等待响应,不允许点击设置或者查询按钮
+                {
+                    radioActivity.changeBtnEnable(false);
+                    timerCounts++;
+                    if (timerCounts >= Global.RetryTimes)//20s之后,跳过这个命令
+                    {
+                        Global.ACK = Global.StateEnum.AckTrue;
+                        timerCounts = 0;
+                        Toast.makeText(radioActivity.getApplication(), "跳过本命令", Toast.LENGTH_SHORT).show();    //显示提示框
+                    } else// if(timerCounts == 50)//10s 之后,认为失败,自动重发上次数据
+                    {
+                        Global.ACK = Global.StateEnum.AckFalse;
+                    }
+
+                } else     //允许点击设置或者查询按钮
+                {
+                    timerCounts =  Global.RetryTimes;
+                    radioActivity.changeBtnEnable(true);
+                }
+            }// if (Global.Debug == false) {
+        }
 		//System.out.println(LOG + "stop!!!!");
 	}
 }

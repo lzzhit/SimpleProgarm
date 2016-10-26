@@ -18,6 +18,7 @@ public class Global {
 	public static boolean Debug = false;
 
 	public static StateEnum ACK = Global.StateEnum.AckTrue;
+    public static boolean SimpleState = false;
 
 	public static void setIPAdress(String ip) {
 			RadioAddress = ip;

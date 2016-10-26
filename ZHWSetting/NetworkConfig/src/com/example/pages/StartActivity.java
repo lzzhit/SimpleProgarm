@@ -25,6 +25,7 @@ public class StartActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_activity);
         zhw_udp = (Button) findViewById(R.id.zhw_udp);
+
         zhw_ip = (Button) findViewById(R.id.zhw_ip);
         jq_16 = (Button) findViewById(R.id.jq_16);
         jq_36 = (Button) findViewById(R.id.jq_36);
@@ -37,7 +38,6 @@ public class StartActivity extends Activity {
                 startActivity(intent);
             }
         });
-
         zhw_ip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {

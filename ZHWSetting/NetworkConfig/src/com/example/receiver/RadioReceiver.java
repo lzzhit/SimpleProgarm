@@ -44,16 +44,16 @@ public class RadioReceiver implements Runnable {
 		}
 	}
 	public void PrintByteHex(String ssss, byte[] bbb ){
-		if(Global.Debug == false)
+		//if(Global.Debug == false)
 		{
 			return;
 		}
-		String s = "";
-		for(int i = 0; i < bbb.length; i++){
-			String ss = Integer.toHexString(bbb[i]&0xFF);
-			s = s + "0x" + ss + ",";
-		}
-		Log.i(TAG, s);
+		//String s = "";
+		//for(int i = 0; i < bbb.length; i++){
+		//	String ss = Integer.toHexString(bbb[i]&0xFF);
+		//	s = s + "0x" + ss + ",";
+		//}
+		//Log.i(TAG, s);
 	}
 	@Override
 	public void run() {

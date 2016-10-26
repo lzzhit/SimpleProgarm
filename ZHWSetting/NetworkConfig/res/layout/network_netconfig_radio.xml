@@ -27,7 +27,6 @@
                 android:layout_alignParentTop="true"
                 android:background="@drawable/juxing"
                 android:paddingBottom="5dp"
-                android:paddingLeft="10dp"
                 android:paddingTop="5dp">
 
                 <TextView
@@ -61,12 +60,12 @@
 
                 <EditText
                     android:id="@+id/edit_times_context"
-                    android:layout_width="60dp"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/edit_send"
                     android:layout_toRightOf="@id/text_times"
                     android:inputType="number"
-                    android:maxLength="4"
+                    android:maxLength="10"
                     android:text="100" />
 
                 <TextView

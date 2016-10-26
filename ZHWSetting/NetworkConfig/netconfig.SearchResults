@@ -1,25 +1,11 @@
----- number Matches (28 in 3 files) ----
-ITelephony.java (gen\com\android\internal\telephony):     * Dial a number. This doesn't place the call. It displays
-ITelephony.java (gen\com\android\internal\telephony):     * @param number the number to be dialed. If null, this
-ITelephony.java (gen\com\android\internal\telephony):     * would display the Dialer screen with no number pre-filled.
-ITelephony.java (gen\com\android\internal\telephony):@Override public void dial(java.lang.String number) throws android.os.RemoteException
-ITelephony.java (gen\com\android\internal\telephony):_data.writeString(number);
-ITelephony.java (gen\com\android\internal\telephony):     * Place a call to the specified number.
-ITelephony.java (gen\com\android\internal\telephony):     * @param number the number to be called.
-ITelephony.java (gen\com\android\internal\telephony):@Override public void call(java.lang.String callingPackage, java.lang.String number) throws android.os.RemoteException
-ITelephony.java (gen\com\android\internal\telephony):_data.writeString(number);
-ITelephony.java (gen\com\android\internal\telephony):     * Dial a number. This doesn't place the call. It displays
-ITelephony.java (gen\com\android\internal\telephony):     * @param number the number to be dialed. If null, this
-ITelephony.java (gen\com\android\internal\telephony):     * would display the Dialer screen with no number pre-filled.
-ITelephony.java (gen\com\android\internal\telephony):public void dial(java.lang.String number) throws android.os.RemoteException;
-ITelephony.java (gen\com\android\internal\telephony):     * Place a call to the specified number.
-ITelephony.java (gen\com\android\internal\telephony):     * @param number the number to be called.
-ITelephony.java (gen\com\android\internal\telephony):public void call(java.lang.String callingPackage, java.lang.String number) throws android.os.RemoteException;
-ITelephonyListener.java (gen\com\android\internal\telephony):@Override public void onUpdate(int callId, int state, java.lang.String number) throws android.os.RemoteException
-ITelephonyListener.java (gen\com\android\internal\telephony):_data.writeString(number);
-ITelephonyListener.java (gen\com\android\internal\telephony):public void onUpdate(int callId, int state, java.lang.String number) throws android.os.RemoteException;
-Network_netconfig_radio.xml (res\layout):                    android:inputType = "number"
-Network_netconfig_radio.xml (res\layout):                    android:inputType = "number"
-Network_netconfig_radio.xml (res\layout):                    android:inputType = "number"
-Network_netconfig_radio.xml (res\layout):                    android:inputType = "number"
-Network_netconfig_radio.xml (res\layout):                    android:inputType = "number"
+---- Debug Matches (10 in 5 files) ----
+Global.java (src\com\example\sender):	public static boolean Debug = false;
+Netconfig_Radio.java (src\com\example\pages):				if(Global.Debug)
+Netconfig_Radio.java (src\com\example\pages):					Global.Debug = false;
+Netconfig_Radio.java (src\com\example\pages):					Global.Debug = true;
+RadioReceiver.java (src\com\example\receiver):		//if(Global.Debug == false)
+RadioSender.java (src\com\example\sender):		//if(Global.Debug == false)
+RadioSender.java (src\com\example\sender):            if (Global.Debug== true) {
+RadioSender.java (src\com\example\sender):            } else {// if (Global.Debug == false) {
+RadioSender.java (src\com\example\sender):            }// if (Global.Debug == false) {
+Workspace.xml (d:\code\zhwsetting\.idea):      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39863715" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />

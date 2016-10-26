@@ -74,6 +74,7 @@ public class Netconfig_Radio extends Activity {
 
 			case 0xFF:
 				btn_sendData.setEnabled(btnEnabled);// btnEnabled);
+                BTDebug.setEnabled(btnEnabled);
 				break;
 			default:
 				break;
@@ -147,7 +148,6 @@ public class Netconfig_Radio extends Activity {
 		radioReceiver.startRecieving();
 		radioSender.startSending();
 		// 设置电台进入遥控状态
-		Global.ACK = Global.StateEnum.AckTrue;
 
 		BTFresh.setOnClickListener(new OnClickListener() {
 
@@ -189,9 +189,11 @@ public class Netconfig_Radio extends Activity {
 					times = 1;
 				}
 				else
-					times = Integer.parseInt(timesStr );
-
-				edit_times.setText(times + "");
+				times = Integer.parseInt(timesStr );
+				
+				Global.RetryTimes = times;
+				
+				edit_times.setText(Global.RetryTimes + "");
 				Global.ACK = Global.StateEnum.AckTrue;
 				if(ip.isEmpty() )
 				{
@@ -199,19 +201,7 @@ public class Netconfig_Radio extends Activity {
 					edit_ip.setText("168.32.100.61");
 				}
 				Global.setIPAdress(ip);
-				if(times > 1001 )
-				{
-					Global.RetryTimes = 100;
-				}
-				else if(times == 0)
-				{
-					Global.RetryTimes = 0;
-				}
-				else
-				{
-					Global.RetryTimes = times;
-				}
-				edit_times.setText(Global.RetryTimes + "");
+				
 
 				SendNormalData();
 			}
