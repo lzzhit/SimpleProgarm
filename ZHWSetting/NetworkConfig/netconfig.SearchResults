@@ -1,11 +1,1 @@
----- Debug Matches (10 in 5 files) ----
-Global.java (src\com\example\sender):	public static boolean Debug = false;
-Netconfig_Radio.java (src\com\example\pages):				if(Global.Debug)
-Netconfig_Radio.java (src\com\example\pages):					Global.Debug = false;
-Netconfig_Radio.java (src\com\example\pages):					Global.Debug = true;
-RadioReceiver.java (src\com\example\receiver):		//if(Global.Debug == false)
-RadioSender.java (src\com\example\sender):		//if(Global.Debug == false)
-RadioSender.java (src\com\example\sender):            if (Global.Debug== true) {
-RadioSender.java (src\com\example\sender):            } else {// if (Global.Debug == false) {
-RadioSender.java (src\com\example\sender):            }// if (Global.Debug == false) {
-Workspace.xml (d:\code\zhwsetting\.idea):      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39863715" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+---- setcontrol Matches (0 in 0 files) ----
