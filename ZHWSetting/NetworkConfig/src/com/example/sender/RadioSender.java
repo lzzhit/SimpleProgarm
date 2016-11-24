@@ -119,7 +119,9 @@ public class RadioSender implements Runnable {
 		while (isSendering) {
 
             try {
-                Thread.sleep(98);
+				if(Global.SendInterval > 0) {
+					Thread.sleep(Global.SendInterval );
+				}
                 if (st != Global.ACK)       //ACK状态变化时打印log
                 {
                     Log.i("RadioSender", "Global.ACK = " + Global.ACK);

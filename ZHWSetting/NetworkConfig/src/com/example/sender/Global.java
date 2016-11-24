@@ -15,6 +15,7 @@ public class Global {
     }
 	public static int RetryTimes = 100;
 	public static int DataLength = 600;
+	public static int SendInterval = 100;
 	public static boolean Debug = false;
 
 	public static StateEnum ACK = Global.StateEnum.AckTrue;

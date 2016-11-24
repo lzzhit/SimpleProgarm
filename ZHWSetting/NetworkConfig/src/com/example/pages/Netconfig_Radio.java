@@ -25,7 +25,7 @@ public class Netconfig_Radio extends Activity {
 	private IContactService contactService = null;
 	private int mSelfVmf = -1;
 	private String mSelfSbbh = null;
-	private TextView edit_send;
+	private EditText edit_send;
 	private TextView text_recv;
 	private Button btn_sendData;
 	private TextView text_recv_times;
@@ -35,6 +35,7 @@ public class Netconfig_Radio extends Activity {
 
 	private EditText edit_ip;
 	private EditText  edit_times;
+	private EditText edit_interval;
 	private Button BTFresh;
 	private Button BTDebug;
 
@@ -74,7 +75,6 @@ public class Netconfig_Radio extends Activity {
 
 			case 0xFF:
 				btn_sendData.setEnabled(btnEnabled);// btnEnabled);
-                BTDebug.setEnabled(btnEnabled);
 				break;
 			default:
 				break;
@@ -138,6 +138,8 @@ public class Netconfig_Radio extends Activity {
 		text_recv_times  = (TextView) findViewById(R.id.text_recv_times);
 		edit_ip = (EditText) findViewById(R.id.edit_ip);
 
+		edit_interval= (EditText)findViewById(R.id.edit_interval);
+
 		edit_times  = (EditText) findViewById(R.id.edit_times_context);
 		BTFresh = (Button) findViewById(R.id.BTFresh);
 		BTDebug =  (Button) findViewById(R.id.BTDebug);
@@ -148,6 +150,7 @@ public class Netconfig_Radio extends Activity {
 		radioReceiver.startRecieving();
 		radioSender.startSending();
 		// 设置电台进入遥控状态
+		Global.ACK = Global.StateEnum.AckTrue;
 
 		BTFresh.setOnClickListener(new OnClickListener() {
 
@@ -189,11 +192,9 @@ public class Netconfig_Radio extends Activity {
 					times = 1;
 				}
 				else
-				times = Integer.parseInt(timesStr );
-				
-				Global.RetryTimes = times;
-				
-				edit_times.setText(Global.RetryTimes + "");
+					times = Integer.parseInt(timesStr );
+
+				edit_times.setText(times + "");
 				Global.ACK = Global.StateEnum.AckTrue;
 				if(ip.isEmpty() )
 				{
@@ -201,7 +202,22 @@ public class Netconfig_Radio extends Activity {
 					edit_ip.setText("168.32.100.61");
 				}
 				Global.setIPAdress(ip);
-				
+				if(times > 1001 )
+				{
+					Global.RetryTimes = 100;
+				}
+				else if(times == 0)
+				{
+					Global.RetryTimes = 0;
+				}
+				else
+				{
+					Global.RetryTimes = times;
+				}
+				int interval = Integer.parseInt("0" + edit_interval.getText().toString());
+				Global.SendInterval = interval;
+
+				edit_times.setText(Global.RetryTimes + "");
 
 				SendNormalData();
 			}
